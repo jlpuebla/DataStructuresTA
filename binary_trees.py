@@ -13,23 +13,37 @@ root.left.left = Node(4)
 root.left.right = Node(5)
 root.right.left = Node(6)
 
-def inorder(node):
+def inorder(node, values):
     if node is None:
         return
     
     # left, root, right
-    inorder(node.left)
-    print(node.val)
-    inorder(node.right)
+    inorder(node.left, values)
+    values.append(node.val)
+    inorder(node.right, values)
 
-print('In order:')
-inorder(root)
+values = []
+inorder(root, values)
+print("In Order = ", values)
 
 
 def left_children_sequence(node, sequence):
-    if node.left:
-        #continue here
+    if node is None:
         return
+    
+    if node.left:
+        sequence.append(1)
+    else:
+        sequence.append(0)
+    
+    # left, root, right
+    left_children_sequence(node.left, sequence)
+    left_children_sequence(node.right, sequence)
+
+sequence = []
+left_children_sequence(root, sequence)
+print('sequence = ', sequence)
+
     
 
 # Breadth-first traversal
@@ -49,7 +63,6 @@ def breadth_first(node, q, result):
 queue = []  # using list as a queue
 result = []
 
-print('Breadth first:')
 breadth_first(root, queue, result)
-print('result= ', result)
+print('Breadth first = ', result)
 
